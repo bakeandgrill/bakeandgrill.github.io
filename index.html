@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Bake & Grill</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta
+            name="description"
+            content="М’ясо на мангалі - піца та хачапурі зі справжньої дров’яної печі"
+        />
+
+        <meta name="keywords" content="" />
+        <meta name="robots" content="index, follow" />
+
+        <link rel="stylesheet" href="./css/bootstrap.min.css" />
+        <link rel="stylesheet" href="./css/index.css" />
+        <!-- <link href="./fonts/index.css" rel="stylesheet" type="text/css" /> -->
+
+        <!-- Facebook Pixel Code -->
+        <script>
+            !(function (f, b, e, v, n, t, s) {
+                if (f.fbq) return;
+                n = f.fbq = function () {
+                    n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+                };
+                if (!f._fbq) f._fbq = n;
+                n.push = n;
+                n.loaded = !0;
+                n.version = '2.0';
+                n.queue = [];
+                t = b.createElement(e);
+                t.async = !0;
+                t.src = v;
+                s = b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t, s);
+            })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '909587843312627');
+            fbq('track', 'PageView');
+        </script>
+        <noscript
+            ><img
+                height="1"
+                width="1"
+                style="display: none"
+                src="https://facebook.com/tr?id=909587843312627&ev=PageView&noscript=1"
+        /></noscript>
+        <!-- End Facebook Pixel Code -->
+    </head>
+    <body>
+        <div class="phone-wrapper">
+            <!-- <a href="#footer" class="phone-btn">Замовити</a> -->
+            <a href="#footer" class="phone-btn" onClick="fbq('track', 'InitiateCheckout');"></a>
+        </div>
+
+        <section id="banner"></section>
+
+        <section id="menu" class="section menu">
+            <div class="container"></div>
+            <div class="voffset200"></div>
+        </section>
+
+        <footer id="footer" class="section" role="contentinfo">
+            <div class="container">
+                <ul class="social">
+                    <li>
+                        <a
+                            href="https://instagram.com/bake_and_grill.che"
+                            style="background: url('./images/instagram.png')"
+                            target="_blank"
+                            class="icon"
+                            onClick="fbq('track', 'Contact');"
+                        ></a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://facebook.com/bake.and.grill.che"
+                            style="background: url('./images/facebook.png')"
+                            target="_blank"
+                            class="icon facebook"
+                            onClick="fbq('track', 'Contact');"
+                        ></a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <div>вул. Припортова 44/1</div>
+                Для замовлення телефонуйте за номером:
+                <a href="tel:+380735359559" class="phone-number" onClick="fbq('track', 'Lead');">+380 735 359 559</a>
+            </div>
+        </footer>
+
+        <script type="text/javascript">
+            const create = {
+                element: function (tag, classString, text) {
+                    const element = document.createElement(tag);
+
+                    if (classString) {
+                        element.classList.add(...classString.split(' '));
+                    }
+
+                    if (text) {
+                        element.textContent = text;
+                    }
+
+                    return element;
+                },
+                row: function (data) {
+                    const row = create.element('div', 'jt_row jt_row-fluid row');
+
+                    const container = create.element('div', 'col-md-12 jt_col column_container');
+                    container.appendChild(create.element('div', 'voffset100'));
+                    container.appendChild(create.element('div', 'title first', data.title));
+                    container.appendChild(create.element('div', 'voffset10'));
+                    if (data.subtitle) {
+                        container.appendChild(create.element('div', 'subtitle', data.subtitle));
+                    }
+
+                    row.appendChild(container);
+                    for (const column of data.columns) {
+                        row.appendChild(create.column(column));
+                    }
+
+                    return row;
+                },
+                column: function (data) {
+                    const column = create.element(
+                        'div',
+                        'col-md-8 col-md-offset-2 jt_col column_container',
+                    );
+                    const offset = create.element('div', 'voffset10');
+                    const menu = create.element('ul', 'menu');
+
+                    for (const iterator of data) {
+                        const item = create.element('li');
+
+                        const information = create.element('div');
+                        information.appendChild(create.element('div', 'name', iterator.name));
+                        information.appendChild(create.element('span', 'price', iterator.price));
+                        information.appendChild(create.element('span', 'weight', iterator.weight));
+
+                        const description = create.element('div', 'detail');
+                        description.appendChild(
+                            create.element('div', 'description', iterator.details),
+                        );
+
+                        item.appendChild(information);
+                        item.appendChild(description);
+                        menu.appendChild(item);
+                    }
+
+                    // for (const iterator of data) {
+                    //     const item = create.element('li', false, iterator.name);
+                    //     const wrapper = create.element('div', 'detail');
+                    //     const details = create.element('div', false, iterator.details);
+                    //     details.setAttribute('style', 'display: inline-block; width: 50%; font-style: italic; text-align: justify;');
+
+                    //     wrapper.appendChild(details);
+                    //     wrapper.appendChild(create.element('span', 'price', iterator.price));
+                    //     wrapper.appendChild(create.element('span', 'weight', iterator.weight));
+                    //     item.appendChild(wrapper);
+                    //     menu.appendChild(item);
+                    // }
+
+                    column.appendChild(offset);
+                    column.appendChild(menu);
+
+                    return column;
+                },
+            };
+
+            function init(data) {
+                const menu = document.querySelector('#menu .container');
+                for (const row of data) {
+                    menu?.appendChild(create.row(row));
+                }
+            }
+
+            init([
+                {
+                    title: "М'ясо",
+                    subtitle: 'на грилі',
+                    columns: [
+                        [
+                            {
+                                name: 'Шашлик з свинини',
+                                details:
+                                    '(ошийок, подається з маринованою цибулею та фірмовим соусом до шашлику)',
+                                weight: '300/30/30 гр.',
+                                price: '113 грн.',
+                            },
+                            {
+                                name: 'Люля кебаб з яловичини',
+                                details:
+                                    '(подається з маринованою цибулею та фірмовим соусом до шашлику)',
+                                weight: '200/30/30 гр.',
+                                price: '65 грн.',
+                            },
+                            {
+                                name: 'Ребра в соусі териякі',
+                                details:
+                                    '(подається з маринованою цибулею та фірмовим соусом до шашлику)',
+                                weight: '300/30/30 гр.',
+                                price: '95 грн.',
+                            },
+                            {
+                                name: 'Ребра гриль',
+                                details:
+                                    '(подається з маринованою цибулею та фірмовим соусом до шашлику)',
+                                weight: '300/30/30 гр.',
+                                price: '90 грн.',
+                            },
+                        ],
+                    ],
+                },
+                {
+                    title: 'Піца',
+                    subtitle: "з дров'яної печі",
+                    columns: [
+                        [
+                            {
+                                name: "4 м'яса",
+                                details:
+                                    '(соус BBQ, сир Моцарелла, ковбаса салямі, бекон, мисливські ковбаски, вітчина, оливки)',
+                                weight: '620 гр.',
+                                price: '149 грн.',
+                            },
+                            {
+                                name: 'Маргарита',
+                                details:
+                                    '(томатний піца соус, сир Моцарелла, соковиті томати, прикрашено свіжим базиліком)',
+                                weight: '500 гр.',
+                                price: '79 грн.',
+                            },
+                            {
+                                name: '4 сири',
+                                details:
+                                    '(соус вершковий, сир Моцарелла, сир Пармезан, сир Джюгас, сир Дорблю, прикрашено свіжою руколою)',
+                                weight: '520 гр.',
+                                price: '155 грн.',
+                            },
+                            {
+                                name: 'Пепероні',
+                                details: '(томатний піца соус, сир Моцарелла, ковбаски пепероні)',
+                                weight: '500 гр.',
+                                price: '125 грн.',
+                            },
+                            {
+                                name: 'Козацька',
+                                details:
+                                    '(соус BBQ, сир Моцарелла, шматочки запеченої свинини, шматочки запеченої курятини, шматочки запеченої яловичини, бекон)',
+                                weight: '600 гр.',
+                                price: '140 грн.',
+                            },
+                            {
+                                name: 'Гавайська',
+                                details:
+                                    '(томатний піца соус, сир Моцарелла, вітчина, шматочки запеченої курятини, ананас, кукурудза)',
+                                weight: '600 гр.',
+                                price: '125 грн.',
+                            },
+                            {
+                                name: 'Пекельна',
+                                details:
+                                    '(томатний піца соус, сир Моцарелла, салямі, мисливські ковбаски, печериці, соус халапеньо)',
+                                weight: '500 гр.',
+                                price: '100 грн.',
+                            },
+                            {
+                                name: 'Веніца',
+                                details:
+                                    '(вершковий соус, сир Моцарелла, шматочки запеченої курятини, мисливські ковбаски, ананас)',
+                                weight: '550 гр.',
+                                price: '120 грн.',
+                            },
+                            {
+                                name: '4 сезони',
+                                details:
+                                    '(томатний піца соус, сир Моцарелла, вітчина, печериці, перець болгарський, цибуля маринована)',
+                                weight: '550 гр.',
+                                price: '110 грн.',
+                            },
+                        ],
+                    ],
+                },
+                {
+                    title: 'Хачапурі',
+                    subtitle: "з дров'яної печі",
+                    columns: [
+                        [
+                            {
+                                name: 'По-аджарськи',
+                                // details: '___',
+                                weight: '450 гр.',
+                                price: '105 грн.',
+                            },
+                            {
+                                name: 'По-мегрельські',
+                                // details: '___',
+                                weight: '350 гр.',
+                                price: '70 грн.',
+                            },
+                            {
+                                name: 'Кубдарі',
+                                // details: '___',
+                                weight: '400 гр.',
+                                price: '73 грн.',
+                            },
+                        ],
+                    ],
+                },
+                {
+                    title: 'Гарніри',
+                    columns: [
+                        [
+                            {
+                                name: 'Овочі гриль',
+                                details: '(печериці, кабачок, болгарський перець, цибуля)',
+                                weight: '300 гр.',
+                                price: '45 грн.',
+                            },
+                            {
+                                name: 'Картопля печена з овочами',
+                                details:
+                                    '(картопля, печериці, кабачок, болгарський перець, цибуля печені в дров’яній печі)',
+                                weight: '400 гр.',
+                                price: '45 грн.',
+                            },
+                            {
+                                name: 'Картопля печена',
+                                details: '(картопля печені в дров’яній печі)',
+                                weight: '300 гр.',
+                                price: '35 грн.',
+                            },
+                            {
+                                name: 'Картопля фрі',
+                                // details: '___',
+                                weight: '250 гр.',
+                                price: '45 грн.',
+                            },
+                            {
+                                name: 'Печериці фрі',
+                                // details: '___',
+                                weight: '250 гр.',
+                                price: '55 грн.',
+                            },
+                        ],
+                    ],
+                },
+                {
+                    title: 'Соуси',
+                    columns: [
+                        [
+                            {
+                                name: 'Фірмовий соус до шашлику',
+                                // details: '___',
+                                weight: '50 гр.',
+                                price: '10 грн.',
+                            },
+                        ],
+                    ],
+                },
+            ]);
+        </script>
+    </body>
+</html>
